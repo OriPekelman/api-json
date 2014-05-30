@@ -15,14 +15,11 @@ Table of Contents
    3.    Specification
    3.1   Access method
    3.2   Authority
-   3.2.1 Authoritative
-   3.2.2 Non-Authoritative
-   3.2.3 Conflict Resolution
-   3.2   File Format Description
-   3.3   Formal Syntax
+   3.3   File Format Description
+   3.4   Formal Syntax
    3.3.1 JSON
    3.3.2 Text Format
-   3.4   Expiration
+   3.5   Expiration
    4.    Examples
    5.    Security Considerations
    6.    Reserved Keywords with Definitions
@@ -84,32 +81,14 @@ Table of Contents
    either the site on which the referenced APIs are operating or another site (see below
    for information on Authoritative and Non-Authoritative definitions) as a resource of
    Internet Media Type as determined by the content type under
-   a standard relative path on the server: "/apis.*", where * is determined by the
-   content type of the file.
+   a standard relative path on the server: ".well_known/apis". The default content-type
+   is considerned to be application/json.
 
-   For convenience we will refer to this resource as the "/apis.*
-   file", though the resource need in fact not originate from a file-
-   system.
+   example:
 
-   Some examples of URLs for sites and URLs for corresponding
-   "/apis.*" sites:
+     http://www.foo.com/.well_known/apis
 
-     http://www.foo.com/apis.txt
-
-     http://www.bar.com:8001/apis.json
-
-   If the server response indicates Success (HTTP 2xx Status Code,)
-   the robot must read the content, parse it, and follow any
-   instructions applicable.
-
-   If the server response indicates the resource does not exist (HTTP
-   Status Code 404), the robot can assume no instructions are
-   available.
-
-   If the robot parses the file it may discover references to further apis.*
-   files elsewhere on the same filesystem or elsewhere on the Internet. It may
-   choose to download these files also and take into account the information
-   contained within them.
+     http://www.bar.com:8001/.well_known/apis
 
    While the format is intented to be human readable and may be used by humans, it
    is primarily intended for consumption by automated software systems. Such software
@@ -119,40 +98,8 @@ Table of Contents
 
 3.2.  Authority
 
-3.121     Authoritative
-
-  An entry in a apis.* file is AUTHORITATIVE for a given domain if the root domain of
-  the API described by the entry is on the same DNS domain or on a DNS subdomain thereof.
-
-3.2.2     Non-Authoritative
-
-   An entry in an apis.* file for an API is NON-AUTHORITATIVE if it is not AUTHORITATIVE.
-
-3.2.3    Authority by Reference
-
-   For Discussion: We may wish to allow the case where a top level apis.json file on a given domain has
-   pointers to files on other servers which define APIs on the domain of the first
-  file. These could then be considered authoritative. This is complex but might be a real
-   use case.
-
-3.2.4.   Conflict Resolution
-
-   In cases where a robot discovers more than one entry in seperate apis.* files for a
-   a specific API, priority on the validity of information should generally be resolved
-   as follows:
-
-   * Authoritative entries have priority over non-authoritative.
-   * Where two or more authoritative entries exist on different subdomains, the
-     entry in the file closest to the specific domain of the root domain of the API
-     shall have priority.
-
-   Example for an API with DNS domain http://mainapi.commerce.company.com/ where entries
-   are present at:
-
-   * http://company.com/apis.json
-   * http://commerce.company.com/apis.json
-
-   The later would be interpreted as the most Authoritative.
+  An entry in a .well_known/apis is AUTHORITATIVE for a given domain if the root domain of
+  the API described by the entry is on the same FQDN.
 
 3.3.   File Format Description
 
