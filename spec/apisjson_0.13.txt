@@ -3,7 +3,8 @@ Name: API Discovery Format
 Informal Name: APIs.json
 Authors: Kin Lane, Steven Willmott, Nicolas Grenie
 Date:
-Location: http://apicommons.org/apisjson/apisjson_v0.12.txt
+Version: 0.13
+Location: http://apicommons.org/apisjson/apisjson_v0.13.txt
 
         A Simple Format for Publishing API Meta Data on the Web
 
@@ -67,7 +68,7 @@ Table of Contents
 
 3.   Specification
 
-   This section defines the API Meta Data Format. The following terminology is used throughout:
+   This section defines the API Metadata Format. The following terminology is used throughout:
 
    * File: instance of a digital file containing data.
    * Apis.* file, a file which contains API Meta Data information compatible with this
@@ -95,7 +96,7 @@ Table of Contents
 
      http://www.foo.com/apis.txt
 
-     hhttp://www.bar.com:8001/apis.json
+     http://www.bar.com:8001/apis.json
 
    If the server response indicates Success (HTTP 2xx Status Code,)
    the robot must read the content, parse it, and follow any
